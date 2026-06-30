@@ -1,0 +1,22 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+*.lock.hcl
+
+# Секреты и ключи
+*.json
+*.key
+*.pem
+*.priv
+*.tfvars
+*.auto.tfvars
+terraform.tfvars
+terraform.tfvars.*
+*.secret
+.env
+*.env
+
+# Логи
+*.log
