@@ -1,18 +1,7 @@
-resource "yandex_iam_service_account" "vm_sa" {
-  name        = "vm-service-account"
-  description = "Сервисный аккаунт для группы ВМ"
-}
-
-resource "yandex_resourcemanager_folder_iam_member" "vm_sa_editor" {
-  folder_id = var.folder_id
-  role      = "editor"
-  member    = "serviceAccount:${yandex_iam_service_account.vm_sa.id}"
-}
-
 resource "yandex_compute_instance_group" "this" {
   name               = var.instance_name
   folder_id          = var.folder_id
-  service_account_id = yandex_iam_service_account.vm_sa.id
+  service_account_id = "aje6pskt4al62ksie4j8"
 
   instance_template {
     platform_id = var.platform_id
@@ -69,25 +58,8 @@ resource "yandex_kms_symmetric_key" "bucket_key" {
   rotation_period   = "8760h"
 }
 
-resource "yandex_iam_service_account" "storage_sa" {
-  name        = "storage-sa"
-  description = "Сервисный аккаунт для Object Storage"
-}
-
-resource "yandex_resourcemanager_folder_iam_member" "storage-editor" {
-  folder_id = var.folder_id
-  role      = "storage.editor"
-  member    = "serviceAccount:${yandex_iam_service_account.storage_sa.id}"
-}
-
-resource "yandex_resourcemanager_folder_iam_member" "storage-kms" {
-  folder_id = var.folder_id
-  role      = "kms.keys.encrypterDecrypter"
-  member    = "serviceAccount:${yandex_iam_service_account.storage_sa.id}"
-}
-
 resource "yandex_iam_service_account_static_access_key" "storage_key" {
-  service_account_id = yandex_iam_service_account.storage_sa.id
+  service_account_id = "aje6pskt4al62ksie4j8"
   description        = "Ключ для доступа к бакету"
 }
 
